@@ -3,7 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from "@iconify/react";
 
-
+/**
+ * Um carrossel customizável e responsivo.
+ * @param {object} props
+ * @param {React.ReactNode} props.children - Os itens a serem exibidos no carrossel.
+ * @param {object} [props.itemsVisible={ base: 1, md: 3, xl: 5 }] - Número de itens visíveis em diferentes breakpoints.
+ */
 const CustomCarousel = ({ children, itemsVisible = { base: 1, md: 3, xl: 5 } }) => {
     const scrollContainerRef = useRef(null);
     const [carouselWidth, setCarouselWidth] = useState(0);
@@ -18,16 +23,15 @@ const CustomCarousel = ({ children, itemsVisible = { base: 1, md: 3, xl: 5 } }) 
             const itemWidth = firstItem.offsetWidth;
             const containerStyle = window.getComputedStyle(container);
             const gap = parseInt(containerStyle.gap) || 0;
-
             const paddingX = (parseInt(containerStyle.paddingLeft) || 0) + (parseInt(containerStyle.paddingRight) || 0);
             
             const totalItems = Array.isArray(children) ? children.length : 0;
 
             const screenWidth = window.innerWidth;
             let visibleCount = itemsVisible.base;
-            if (screenWidth >= 1280) { 
+            if (screenWidth >= 1280) { // xl
                 visibleCount = itemsVisible.xl;
-            } else if (screenWidth >= 768) { 
+            } else if (screenWidth >= 768) { // md
                 visibleCount = itemsVisible.md;
             }
             
@@ -44,7 +48,6 @@ const CustomCarousel = ({ children, itemsVisible = { base: 1, md: 3, xl: 5 } }) 
         };
 
         const timer = setTimeout(calculateDimensions, 0);
-
         window.addEventListener('resize', calculateDimensions);
 
         return () => {
@@ -75,7 +78,7 @@ const CustomCarousel = ({ children, itemsVisible = { base: 1, md: 3, xl: 5 } }) 
             >
                 <button
                     onClick={() => scroll('left')}
-                    className={`absolute top-1/2 -left-5 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transition-all duration-300 hover:bg-gray-100 group-hover:opacity-100 ${showButtons ? 'visible opacity-75' : 'invisible opacity-0'}`}
+                    className={`absolute top-1/2 -left-5 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transition-all duration-300 hover:bg-gray-100 group-hover:opacity-100 hidden md:block ${showButtons ? 'visible opacity-75' : 'invisible opacity-0'}`}
                 >
                     <Icon icon={'heroicons-outline:arrow-left'} className="h-5 w-5" />
                 </button>
@@ -89,7 +92,7 @@ const CustomCarousel = ({ children, itemsVisible = { base: 1, md: 3, xl: 5 } }) 
 
                 <button
                     onClick={() => scroll('right')}
-                    className={`absolute top-1/2 -right-5 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transition-all duration-300 hover:bg-gray-100 group-hover:opacity-100 ${showButtons ? 'visible opacity-75' : 'invisible opacity-0'}`}
+                    className={`absolute top-1/2 -right-5 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transition-all duration-300 hover:bg-gray-100 group-hover:opacity-100 hidden md:block ${showButtons ? 'visible opacity-75' : 'invisible opacity-0'}`}
                 >
                     <Icon icon={'heroicons-outline:arrow-right'} className="h-5 w-5" />
                 </button>
