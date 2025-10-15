@@ -3,12 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from "@iconify/react";
 
-/**
- * Um carrossel customizável e responsivo.
- * @param {object} props
- * @param {React.ReactNode} props.children - Os itens a serem exibidos no carrossel.
- * @param {object} [props.itemsVisible={ base: 1, md: 3, xl: 5 }] - Número de itens visíveis em diferentes breakpoints.
- */
 const CustomCarousel = ({ children, itemsVisible = { base: 1, md: 3, xl: 5 } }) => {
     const scrollContainerRef = useRef(null);
     const [carouselWidth, setCarouselWidth] = useState(0);
@@ -29,9 +23,9 @@ const CustomCarousel = ({ children, itemsVisible = { base: 1, md: 3, xl: 5 } }) 
 
             const screenWidth = window.innerWidth;
             let visibleCount = itemsVisible.base;
-            if (screenWidth >= 1280) { // xl
+            if (screenWidth >= 1280) { 
                 visibleCount = itemsVisible.xl;
-            } else if (screenWidth >= 768) { // md
+            } else if (screenWidth >= 768) {
                 visibleCount = itemsVisible.md;
             }
             
